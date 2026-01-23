@@ -1,0 +1,11 @@
+$ g++ -std=c++23 -Wall -Wextra -Werror
+$ ./move-large.exe
+A(init_list:5) 0x7ffe53f0f340
+A(5) 0x7ffe53f0f330
+a+b;(rvalue3) 0x7ffe53f0f330 0x7ffe53f0f340
+a+b;(rvalue1) 0x7ffe53f0f330 0x7ffe53f0f340
+A(move) 0x7ffe53f0f320 0x7ffe53f0f340
+~A() 0x7ffe53f0f330
+~A() 0x7ffe53f0f340
+~A() 0x7ffe53f0f320
+$

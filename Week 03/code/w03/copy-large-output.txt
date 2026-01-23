@@ -1,0 +1,16 @@
+$ g++ -std=c++23 -Wall -Wextra -Werror
+$ ./copy-large.exe
+A() 0x7ffe8d8f8ba0
+A() 0x7ffe8d8f8ba8
+A() 0x7ffe8d8f8bb0
+a+b; 0x7ffe8d8f8ba0
+A(copy) 0x7ffe8d8f8bb8
+a+b; 0x7ffe8d8f8bb8
+A(copy) 0x7ffe8d8f8bc0
+a=b;(copy) 0x7ffe8d8f8bb0
+~A() 0x7ffe8d8f8bc0
+~A() 0x7ffe8d8f8bb8
+~A() 0x7ffe8d8f8bb0
+~A() 0x7ffe8d8f8ba8
+~A() 0x7ffe8d8f8ba0
+$

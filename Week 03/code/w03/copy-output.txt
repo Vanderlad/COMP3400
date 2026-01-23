@@ -1,0 +1,5 @@
+$ g++ -std=c++23 -Wall -Wextra -Werror
+$ ./copy.exe
+A() 0x55863d08c151 
+~A() 0x55863d08c151 
+$
