@@ -25,3 +25,6 @@ language.
 - Multidimensional data views: `<mdspan>`
 - Debugging and diagnostics utilities: `<source_location>`, `<stacktrace>`
 - Additional modern C++ standard library facilities
+
+Compile and run command: g++ -std=c++23 -Wall -Wextra -Wpedantic main.cpp -o main && ./main
+

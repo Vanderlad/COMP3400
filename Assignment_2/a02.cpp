@@ -1,0 +1,94 @@
+#include <compare>
+#include <format>
+#include <iostream>
+#include <memory>
+#include <print>
+#include <vector>
+
+struct std::formatter<point>;
+class shape; // forward declaration
+using oo_shape_type = std::shared_ptr<shape>;
+
+int main()
+{
+  using namespace std;
+  point x{ 1, 6 };
+  println("{}", x);
+}
+
+struct point
+{ 
+  int x;
+  int y;
+};
+
+template <>
+struct std::formatter<point>
+{
+// After C++20 was standardized std::formatter::parse() was defined to permit 
+// constexpr parsers. If such, however, is not supported by the compiler
+// this code does not define parse() to be constexpr...
+//   * ASIDE: GCC version 15 does not allow one to throw from a constexpr function
+//            which will cause a compiler error if one throws. (GCC cannot
+//            fully implement this feature until such is supported.)
+//  * The __cpp_lib_format macro is part of the C++ Feature Testing Macros defined
+//    by the C++ standard. The value of this macro corresponds to the __cplusplus
+//    macro value (which is the integer date YYYYMMDD of the C++ standard being compiled).
+#if __cpp_lib_format >= 202106
+  constexpr
+#endif 
+  auto parse(std::format_parse_context& ctx)
+  { 
+    // If one only wants to support the empty format specifier {} 
+    // this function could be written as return ctx.begin(); 
+    // If one needs to parse what is inside {} then more code is needed. 
+    // This code returns the last character parsed (and only supports {}).
+    if (ctx.begin() == ctx.end())
+      return ctx.begin();
+    
+    auto pos{ ctx.begin() };
+    if (*pos == '{')
+      ++pos; 
+    if (*pos != '}')
+      throw std::format_error("invalid format specification");
+    return pos;
+  }
+  
+  auto format(point const& p, std::format_context& ctx) const
+  { 
+    return std::format_to(ctx.out(), "({},{})", p.x, p.y);
+  }
+};
+
+class shape {
+    private:
+    // private member variable of type point.
+        point p_;
+
+        // Note for myself: 
+        // constructor-name ( parameter-list ) : member-initializer-list { body }
+        // colon means “Before the constructor body runs, construct these members like this.”
+
+    public:
+        // public default constructor
+        shape() : p_() {} 
+
+        // public constructor that accepts a single argument of type point
+        shape(point p) : p_(p) {}
+
+        // public defaulted copy constructor.
+        shape(shape const&) = default;
+
+        // public defaulted copy assignment operator.
+        shape& operator=(shape const&) = default; //shape& returns *this(as a reference), operator= is assignment, shape const& is source object
+                // Conceptually 
+                /*     shape& shape::operator=(shape const& other) {
+                            p_ = other.p_;
+                            return *this;
+                       }                                                      */
+
+        // public defaulted move constructor.
+        shape(shape&&) = default;
+        // public defaulted move assignment operator.
+        shape& operator=(shape&&) = default;
+};
