@@ -48,3 +48,34 @@ which makes no sense since references cannot be reseated.
   → `const` is placed directly next to what is const  
   → scales better to complex types  
   → common modern C++ stylistic standard
+
+
+### Other Things
+
+- Virtual functions dispatch to the most-derived override only; base-class versions are not called unless explicitly invoked.
+
+- A virtual destructor ensures that when an object is deleted through a base-class pointer, the correct derived-class destructor is called, preventing resource leaks and undefined behavior. ex:
+
+```cpp
+
+struct Base {
+    virtual ~Base() {}
+};
+
+struct Derived : Base {
+    ~Derived() {
+        // cleanup work
+    }
+};
+
+Base* b = new Derived;
+delete b;
+
+/* 
+Runtime Calls:
+    Derived::~Derived()
+then:
+    Base::~Base()
+[if virtual wasn't there then it calls Base::~Base() only and Derived::~Derived() is skipped ]
+*/
+```
