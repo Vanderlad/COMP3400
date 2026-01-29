@@ -81,14 +81,17 @@ class shape {
 
         // public defaulted copy assignment operator.
         shape& operator=(shape const&) = default; //shape& returns *this(as a reference), operator= is assignment, shape const& is source object
-                // Conceptually 
-                /*     shape& shape::operator=(shape const& other) {
-                            p_ = other.p_;
-                            return *this;
-                       }                                                      */
-
+                                                    /*   --Conceptually--
+                                                          shape& shape::operator=(shape const& other) {
+                                                                p_ = other.p_;
+                                                                return *this;
+                                                          }                                                      */
         // public defaulted move constructor.
         shape(shape&&) = default;
+
         // public defaulted move assignment operator.
         shape& operator=(shape&&) = default;
+
+        // public virtual destructor
+        virtual ~shape() = default; // virtual ~shape() {} is equivalent
 };
