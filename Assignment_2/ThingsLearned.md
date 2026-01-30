@@ -98,9 +98,9 @@ then:
 
 - **using oo_shape_type = std::shared_ptr<shape>;**
 
-- vector<oo_shape_type> v;
+    - vector<oo_shape_type> v;
 
-- This is a vector of std::shared_ptr<shape> objects.
+    - This is a vector of std::shared_ptr<shape> objects.
 
-- Object-oriented programming (involving virtual inheritance to use C++ terms) requires using references/pointers to the objects.
-  In C++ std::shared_ptr objects automatically free the memory they hold when their destructor is called. The same for std::vector --so your program will have no free/delete calls in it. (This is the norm in C++.)
+    - Object-oriented programming (involving virtual inheritance to use C++ terms) requires using references/pointers to the objects.
+    In C++ std::shared_ptr objects automatically free the memory they hold when their destructor is called. The same for std::vector --so your program will have no free/delete calls in it. (This is the norm in C++.)
