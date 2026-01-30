@@ -1,41 +1,14 @@
+// (ignore most comments) Will be putting in comments for myself to understand and look back on when studying
+// Vlad Mihaescu: 110014634
 #include <compare>
 #include <format>
 #include <iostream>
 #include <memory>
 #include <print>
 #include <vector>
-// (ignore most comments) Will be putting in comments for myself to understand and look back on when studying
-struct std::formatter<point>;
+
 class shape; // forward declaration
-class circle;
-class line;
-class line_segment;
-
 using oo_shape_type = std::shared_ptr<shape>;
-
-int main()
-{
-    using namespace std;
-
-    // Declare a std::vector that holds oo_shape_type instance:
-    vector<oo_shape_type> v;
-
-    // Appending a dynamically allocated circle object that is at point (3,5) with a radius of 45:
-    v.push_back(make_shared<circle>(point{3,5},45));
-
-    // Appending a dynamically allocated line_segment object constructed with the start point (1,3) and stop point (7,9) to the vector v:
-    v.push_back(make_shared<line_segment>(point{1,3}, point{7,9}));
-
-    // Appending to the vector v a dynamically allocated line object constructed with 3, 5, and 10 passed to it (slope 3/5 and y-intercept is 10).
-    v.push_back(make_shared<line>(3, 5, 10));
-
-    // Write a for loop (range-based --not traditional) that iterates over v. Inside the loop body should be this code:
-    for (auto elem : v){
-        elem->clone()->draw(); // yes, this is inefficient
-    }
-
-}
-
 
 struct point
 { 
@@ -238,3 +211,26 @@ class line_segment: public virtual shape
             return this->anchor_point();
         }
 };
+
+int main()
+{
+    using namespace std;
+
+    // Declare a std::vector that holds oo_shape_type instance:
+    vector<oo_shape_type> v;
+
+    // Appending a dynamically allocated circle object that is at point (3,5) with a radius of 45:
+    v.push_back(make_shared<circle>(point{3,5},45));
+
+    // Appending a dynamically allocated line_segment object constructed with the start point (1,3) and stop point (7,9) to the vector v:
+    v.push_back(make_shared<line_segment>(point{1,3}, point{7,9}));
+
+    // Appending to the vector v a dynamically allocated line object constructed with 3, 5, and 10 passed to it (slope 3/5 and y-intercept is 10).
+    v.push_back(make_shared<line>(3, 5, 10));
+
+    // Write a for loop (range-based --not traditional) that iterates over v. Inside the loop body should be this code:
+    for (auto elem : v){
+        elem->clone()->draw(); // yes, this is inefficient
+    }
+
+}
