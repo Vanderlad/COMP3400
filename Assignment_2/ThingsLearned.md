@@ -1,6 +1,6 @@
-# Things Learned
+# Some things I learned that stood out to me
 
-Lots of syntax learned + object lifetime in C++
+Lots of syntax learned + object lifetime in CPP + Polymorphism in C++
 
 ## Constructors and Assignment
 
@@ -50,7 +50,7 @@ which makes no sense since references cannot be reseated.
   → common modern C++ stylistic standard
 
 
-### Other Things
+## Destructor behaviour and virtual functions
 
 - Virtual functions dispatch to the most-derived override only; base-class versions are not called unless explicitly invoked.
 
@@ -79,3 +79,28 @@ then:
 [if virtual wasn't there then it calls Base::~Base() only and Derived::~Derived() is skipped ]
 */
 ```
+## Inheritance and Smart Pointers
+
+*How inheritance syntax works at grammar-level
+
+    The general form is:
+    class Derived : access-specifier virtual Base {
+    };
+
+- **What does std::make_shared<line>(*this) do?**
+
+    - Allocates memory for a new line object (on the heap)
+
+    - Calls line’s copy constructor
+
+    - Wraps the new object in a std::shared_ptr<line>
+
+
+- **using oo_shape_type = std::shared_ptr<shape>;**
+
+- vector<oo_shape_type> v;
+
+- This is a vector of std::shared_ptr<shape> objects.
+
+- Object-oriented programming (involving virtual inheritance to use C++ terms) requires using references/pointers to the objects.
+  In C++ std::shared_ptr objects automatically free the memory they hold when their destructor is called. The same for std::vector --so your program will have no free/delete calls in it. (This is the norm in C++.)
