@@ -79,7 +79,7 @@ class shape {
                                                           shape& shape::operator=(shape const& other) {
                                                                 p_ = other.p_;
                                                                 return *this;
-                                                          }                                                      */
+                                                          }         use: shape.operator=(otherShape)                                             */
         // public defaulted move constructor.
         shape(shape&&) = default;
 
@@ -219,7 +219,7 @@ int main()
     // Declare a std::vector that holds oo_shape_type instance:
     vector<oo_shape_type> v;
 
-    // Appending a dynamically allocated circle object that is at point (3,5) with a radius of 45:
+    // Appending a dynamically allocated circle object that is at point   (3,5) with a radius of 45:
     v.push_back(make_shared<circle>(point{3,5},45));
 
     // Appending a dynamically allocated line_segment object constructed with the start point (1,3) and stop point (7,9) to the vector v:

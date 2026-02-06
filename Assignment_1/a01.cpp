@@ -6,9 +6,12 @@
 bool is_direct_child_path_of(std::filesystem::path const &possible_child_path, std::filesystem::path const &known_path) {
 
     namespace fs = std::filesystem;
-    auto cpath{ fs::canonical(possible_child_path) };
-    // consider a path that does not have a parent path to be under known_path...
-    if (not cpath.has_parent_path())
+    auto cpath{ fs::canonical(possible_child_path) }; 
+    // cpath is constructed by fs::canonical which converts a path into its absolute, normalized, symlink resolved form,
+    //      so path comparisons reflect the real filesystem
+
+    // consider a path that does not have a parent path to be under known_path... 
+    if (not cpath.has_parent_path()) // basically if cpath doesnt have a parent, then it is the root
         return true;
     auto parent_cpath{ cpath.parent_path() };
     // otherwise ensure possible_child_path's parent path is known_path
@@ -67,7 +70,7 @@ int main (int argc, char* argv[]){
                 //Output "Processing path " followed by the path (i.e., argv[i]) being processed followed by a newline to std::cerr.
                 auto generator = bfs_scan(argv[i]);
                 cerr << "Processing path " << argv[i] << "\n";
-                for (const auto& file: generator) { // iterate over elements(files or symlinks) saved in coroutine and output to cout
+                for (auto const& file: generator) { // iterate over elements(files or symlinks) saved in coroutine and output to cout
                     cout << file << "\n";
                 }
             }
