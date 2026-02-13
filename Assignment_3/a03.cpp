@@ -11,19 +11,19 @@
 
 template <typename R>
 concept ForwardSizedRange =
-  requires(R& r)
+  requires(R& r) // Requires that R type provides begin(), end(), and size()
   {
     r.begin();
     r.end();
     r.size();
-    requires std::forward_iterator<decltype(r.begin())>;
-  };
+    requires std::forward_iterator<decltype(r.begin())>; //type returned by r.begin is forward_iterator
+  }; // Constrains R to ranges with size and forward-iterable iterators
 
-template <ForwardSizedRange R>
-auto all_subsets(R&& r)
+template <ForwardSizedRange R> // template function constrained by ForwardSizedRange concept
+auto all_subsets(R&& r) // takes a range "r" (by forwarding reference) returns a coroutine
   -> std::generator<std::vector<decltype(r.begin())>>
 {
-    using iter_t = decltype(r.begin());
+    using iter_t = decltype(r.begin()); //decltype preserves full type unlike auto(type inquiry)
     using T = std::vector<iter_t>;
 
     std::size_t const n{ r.size() };
